@@ -1,6 +1,8 @@
 package net.engineeringdigest.journalApp.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import net.engineeringdigest.journalApp.Repository.UserRepository;
 import net.engineeringdigest.journalApp.api.response.WeatherResponse;
 import net.engineeringdigest.journalApp.entity.User;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@Tag(name= "User APIs", description = "Read, Update & Delete User")
 public class UserController {
 
     @Autowired
@@ -33,6 +36,7 @@ public class UserController {
 //    }
 
     @PutMapping
+    @Operation(summary = "Update userID and userPassword")
     public ResponseEntity<?> updateUser(@RequestBody User user){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
@@ -44,6 +48,7 @@ public class UserController {
     }
 
     @DeleteMapping
+    @Operation(summary = "Delete user by userName")
     public ResponseEntity<?> deleteUserById(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         userRepository.deleteByUserName(authentication.getName());
@@ -51,6 +56,7 @@ public class UserController {
     }
 
     @GetMapping
+    @Operation(summary = "Inner weather API")
     public ResponseEntity<?> greeting() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         WeatherResponse weatherResponse = weatherService.getWeather("Mumbai");
