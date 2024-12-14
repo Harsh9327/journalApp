@@ -17,7 +17,7 @@ import java.util.Date;
 public class JournalEntry {
 
     @Id
-    private ObjectId id;
+    private String id;
     private LocalDateTime date;
     @NonNull
     private String title;
